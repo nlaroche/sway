@@ -1,0 +1,344 @@
+:root {
+  --bg-primary: #0d0d1a;
+  --bg-secondary: #1a1a2e;
+  --bg-tertiary: #252542;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  --text-muted: #606070;
+  --accent-color: #00d4ff;
+  --accent-secondary: #0088aa;
+  --accent-glow: rgba(0, 212, 255, 0.3);
+  --border-color: #333348;
+  --knob-size: 64px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+  user-select: none;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  gap: 12px;
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  transition: opacity 0.3s ease;
+}
+
+.app.bypassed {
+  opacity: 0.5;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, var(--accent-color) 0%, #00ffaa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.bypass-btn {
+  margin-left: auto;
+  padding: 6px 14px;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--accent-color);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bypass-btn:hover {
+  background: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+.bypass-btn.active {
+  background: #ff4444;
+  border-color: #ff4444;
+  color: white;
+}
+
+/* Visualizer */
+.visualizer-section {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.visualizer-container {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+}
+
+.visualizer-canvas {
+  display: block;
+}
+
+/* Mode Selector */
+.mode-section {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0;
+}
+
+.mode-selector {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+}
+
+.mode-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mode-btn.active {
+  background: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+/* Controls Grid */
+.controls-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 16px;
+  min-height: 0;
+}
+
+.section {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Knob */
+.knob-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.knob-container.highlight .knob-track-active {
+  stroke: #00ff88;
+}
+
+.knob-container.highlight .knob-value {
+  color: #00ff88;
+}
+
+.knob {
+  width: var(--knob-size);
+  height: var(--knob-size);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.knob:hover {
+  transform: scale(1.05);
+}
+
+.knob:active {
+  transform: scale(0.98);
+}
+
+.knob-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.knob-track-active {
+  transition: stroke-dasharray 0.05s ease;
+}
+
+.knob-value {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.knob-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Shape Selector */
+.shape-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.shape-selector label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.shape-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.shape-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 6px;
+  transition: all 0.2s ease;
+}
+
+.shape-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+}
+
+.shape-btn.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+.shape-icon {
+  width: 100%;
+  height: 100%;
+}
+
+/* Mode-specific accent colors */
+.app[data-mode="flanger"] {
+  --accent-color: #ff6b00;
+  --accent-secondary: #aa4400;
+  --accent-glow: rgba(255, 107, 0, 0.3);
+}
+
+.app[data-mode="phaser"] {
+  --accent-color: #aa00ff;
+  --accent-secondary: #6600aa;
+  --accent-glow: rgba(170, 0, 255, 0.3);
+}
+
+.app[data-mode="ensemble"] {
+  --accent-color: #00ff88;
+  --accent-secondary: #00aa55;
+  --accent-glow: rgba(0, 255, 136, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  :root {
+    --knob-size: 56px;
+  }
+
+  .controls-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}

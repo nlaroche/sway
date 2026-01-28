@@ -416,3 +416,33 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# CMake build directories
+build/
+cmake-build-*/
+
+# Plugin build outputs
+*.dll
+*.dylib
+*.so
+*.vst3
+*.component
+
+# JUCE
+JuceLibraryCode/
+
+# Web UI
+web-ui/node_modules/
+Resources/WebUI/*
+!Resources/WebUI/.gitkeep
+
+# BeatConnect
+resources/project_data.json
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+*.xcodeproj/
+*.xcworkspace/
